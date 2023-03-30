@@ -1,9 +1,9 @@
 // playwright-dev-page.js
-const { expect } = require('@playwright/test');
+const { expect } = require("@playwright/test");
 
 // Page object for /login screen
 
-exports.LoginPage = class {
+exports.RegisterPage = class {
   constructor(page) {
     this.page = page;
 
@@ -11,7 +11,7 @@ exports.LoginPage = class {
     this.loginInput = page.locator('[data-test="login-email"]');
     this.continueButton = page.locator('[data-test="validate-email"]');
     this.signupButton = page.locator('[data-test="create"]');
-    this.alertMessage = page.locator('.alert-message');
+    this.alertMessage = page.locator(".alert-message");
   }
 
   // helpers
@@ -24,7 +24,7 @@ exports.LoginPage = class {
   }
 
   // actions
-  async login(email) {
+  async register(email) {
     await expect(this.continueButton).toBeVisible();
     await expect(this.signupButton).toBeVisible();
     await expect(this.loginInput).toBeVisible();
@@ -36,7 +36,7 @@ exports.LoginPage = class {
   }
 
   async goto() {
-    await this.page.goto('/login');
-    await expect(this.page).toHaveURL(/.*login/);
+    await this.page.goto("/register");
+    await expect(this.page).toHaveURL(/.*register/);
   }
 };

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,9 @@
     "url": "https://github.com/l3mpire/sdet-boilerplate/issues"
   },
   "homepage": "https://github.com/l3mpire/sdet-boilerplate#readme",
-  "dependencies": {},
   "devDependencies": {
     "@playwright/test": "^1.30.0",
+    "dotenv": "^16.0.3",
     "playwright-expect": "^0.1.2"
   }
 }
