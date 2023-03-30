@@ -1,12 +1,15 @@
 Routes:
+
 /login
 -> fails with bad email
 -> allow login with good email
--> fails with bad password
--> allow login with good password
+-> check forgot password request
+-> allow login with correct email/password
+
 /create-account
--> fails if one field missing
--> allow register when form is completed
+-> fails if at least one field is missing
+-> allow register with correct infos
+
 /signup-form
 ->
 ->

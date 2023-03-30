@@ -12,26 +12,39 @@ test.describe("Lemlist Register", () => {
     page.context().clearCookies();
   });
 
-  test("Register_01: fails with bad email", async ({ page }) => {
+  test("REGISTER_01: fails if at least one field is missing", async ({ page }) => {
     const registerPage = new RegisterPage(page);
+    const missingFieldNotification = await page.locator(".noty_body");
 
-    // empty input
+    // missing field(s)
     await registerPage.goto();
-    await registerPage.registerInput.fill("");
-    await expect(registerPage.continueButton).toBeDisabled();
-
-    // bad email
-    await registerPage.register("bademail@email.com");
-    await expect(registerPage.alertMessage).toContainText("no account exists");
+    await registerPage.registerWithMissingFields();
+    await expect(missingFieldNotification).toBeVisible()
   });
 
-  test.skip("Register_02: should allow register with correct email /password", async ({
+  test("REGISTER_02: should allow register with correct infos", async ({
     page,
   }) => {
     const registerPage = new RegisterPage(page);
+    const infos = {
+      firstName: "-----", // replace with test firstName
+      lastName: "-----", // replace with test lastName
+      email: "-----", // replace with test email
+      password: "-----" // replace with test password
+    }
+    const choice = await page.locator(".choice").first()
+    const continueButton = await page.locator("button").first()
+    const bigChoice = await page.locator(".choice .big").first()
+    const validateButton = await page.locator("button").first()
+    const elements = {choice , continueButton, bigChoice, validateButton}
 
-    // good input
     await registerPage.goto();
-    await registerPage.register("dev.ci.lempire@gmail.com");
+    await registerPage.register(infos);
+    await registerPage.registerLastInfos(elements);
+
+    // check dashboard info
+    await expect(page).toHaveURL(/.*tea_.*/)
+    // await loginPage.team()._id.toContainText(/.*tea_.*/)
+    // await loginPage.user()._id.toContainText(/.*usr_.*/);
   });
 });

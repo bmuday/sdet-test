@@ -49,15 +49,14 @@ exports.LoginPage = class {
     await this.loginButton.click();
   }
 
-  async forgotPasswordRequest() {
-    const modal = await page.locator("swal2-modal");
-    const confirmButton = await page.locator("swal2-confirm");
+  async forgotPasswordRequest(elements) {
 
-    await expect(modal).toBeVisible();
-    await expect(confirmButton).toBeVisible();
+    await this.passwordRequest.click();
+    await expect(elements.modal).toBeVisible();
+    await expect(elements.confirmButton).toBeVisible();
 
-    await confirmButton.click();
-    await expect(modal).toBeHidden();
+    await elements.confirmButton.click();
+    await expect(elements.modal).toBeHidden();
   }
 
   async goto() {
