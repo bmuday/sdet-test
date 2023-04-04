@@ -1,5 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const { RegisterPage } = require("./register.page");
+require("dotenv").config()
 
 // @ts-check
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -27,10 +28,10 @@ test.describe("Lemlist Register", () => {
   }) => {
     const registerPage = new RegisterPage(page);
     const infos = {
-      firstName: "-----", // replace with test firstName
-      lastName: "-----", // replace with test lastName
-      email: "-----", // replace with test email
-      password: "-----" // replace with test password
+      firstName: process.env.TEST_FIRSTNAME, // replace with test firstName
+      lastName: process.env.TEST_LASTNAME, // replace with test lastName
+      email: process.env.TEST_EMAIL_REGISTER, // replace with test email
+      password: process.env.TEST_PASSWORD // replace with test password
     }
     const choice = await page.locator(".choice").first()
     const continueButton = await page.locator("button").first()

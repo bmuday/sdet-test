@@ -1,5 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("./login.page");
+require("dotenv").config()
 
 // @ts-check
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -30,7 +31,7 @@ test.describe("Lemlist login", () => {
     const submitPasswordNotification = await page.locator(".noty_body");
 
     await loginPage.goto();
-    await loginPage.login("-----"); // replace with test email
+    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
 
     // empty password input
     await loginPage.passwordInput.fill("");
@@ -50,7 +51,7 @@ test.describe("Lemlist login", () => {
 
     // request new password
     await loginPage.goto();
-    await loginPage.login("-----"); // replace with test email
+    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
 
     await loginPage.forgotPasswordRequest(elements);
     await expect(passwordRequestNotification).toContainText("just sent");
@@ -63,8 +64,8 @@ test.describe("Lemlist login", () => {
 
     // good email
     await loginPage.goto();
-    await loginPage.login("-----"); // replace with test email
-    await loginPage.loginWithPassword("-----"); // replace with test password
+    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
+    await loginPage.loginWithPassword(process.env.TEST_password); // replace with test password
 
     // check dashboard info
     await expect(page).toHaveURL(/.*tea_.*/)
