@@ -1,6 +1,5 @@
 const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("./login.page");
-require("dotenv").config()
 
 // @ts-check
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -31,7 +30,7 @@ test.describe("Lemlist login", () => {
     const submitPasswordNotification = await page.locator(".noty_body");
 
     await loginPage.goto();
-    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
+    await loginPage.login(process.env.TEST_EMAIL); // replace with test email
 
     // empty password input
     await loginPage.passwordInput.fill("");
@@ -46,12 +45,12 @@ test.describe("Lemlist login", () => {
     const loginPage = new LoginPage(page);
     const modal = await page.locator(".swal2-modal");
     const confirmButton = await page.locator(".swal2-confirm");
-    const elements = {modal, confirmButton}
+    const elements = { modal, confirmButton };
     const passwordRequestNotification = await page.locator(".noty_body");
 
     // request new password
     await loginPage.goto();
-    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
+    await loginPage.login(process.env.TEST_EMAIL); // replace with test email
 
     await loginPage.forgotPasswordRequest(elements);
     await expect(passwordRequestNotification).toContainText("just sent");
@@ -64,11 +63,11 @@ test.describe("Lemlist login", () => {
 
     // good email
     await loginPage.goto();
-    await loginPage.login(process.env.TEST_EMAIL_LOGIN); // replace with test email
-    await loginPage.loginWithPassword(process.env.TEST_password); // replace with test password
+    await loginPage.login(process.env.TEST_EMAIL); // replace with test email
+    await loginPage.loginWithPassword(process.env.TEST_PASSWORD); // replace with test password
 
     // check dashboard info
-    await expect(page).toHaveURL(/.*tea_.*/)
+    await expect(page).toHaveURL(/.*tea_.*/);
     // await loginPage.team()._id.toContainText(/.*tea_.*/)
     // await loginPage.user()._id.toContainText(/.*usr_.*/);
   });
